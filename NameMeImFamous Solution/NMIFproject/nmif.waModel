@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><EntityModelCatalog>
+
+<dbInfo name="nmif" uuid="DEB2380315EE8E47AF7052ECFC4FADBC"/>
+
+<dataClasses name="AvailablePackages" className="AvailablePackages" collectionName="AvailablePackagesCollection" scope="public" uuid="8FE250BAB68F0A4CB7093BCB72BDDE9C" tablePos="12">
+
+	<extraProperties ____objectunic="true" panelColor="#548DD4">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="408" Y="405"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="63176A855CD7164F848ED14192F81981" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="player" kind="relatedEntity" scope="public" type="PlayerAccount" uuid="CB611B8FC0243C44958760F528345A05" fieldPos="2" path="PlayerAccount"/>
+
+	<attributes name="celebrityGroup" kind="relatedEntity" scope="public" type="CelebrityGroup" uuid="B99E5EE42C70604BB408E939607EC32F" fieldPos="3" path="CelebrityGroup"/>
+
+	<attributes name="enabled" kind="storage" scope="public" uuid="C04C3A80A9C5CD45BF3857A7EE2077E0" fieldPos="4" type="bool"/>
+
+</dataClasses>
+
+<dataClasses name="Celebrity" className="Celebrity" collectionName="CelebrityCollection" scope="public" uuid="1D40A31B39AD86468A66A9011A9A8318" tablePos="4">
+
+	<extraProperties ____objectunic="true" panelColor="#fff">
+
+		<panel ____objectunic="true" isOpen="true" resizedHeight="" pathVisible="true">
+
+			<position ____objectunic="true" X="10" Y="787"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="4B9CA3E2D2755D458A91BA3C3AFC055B" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="Name" kind="storage" scope="public" uuid="8AFFF2A1E6E59742B3FF164111E44058" fieldPos="2" type="string"/>
+
+	<attributes name="role" kind="storage" scope="public" uuid="0E0C25211EF752458E3207902E2E30C3" fieldPos="3" type="string"/>
+
+	<attributes name="playerInCompletedGameCollection" kind="relatedEntities" scope="public" type="PlayerInCompletedGameCollection" reversePath="true" path="celebrity"/>
+
+	<attributes name="group" kind="relatedEntity" scope="public" type="CelebrityGroup" uuid="CEF5F99E1933CC43A86605656674536D" fieldPos="4" path="CelebrityGroup"/>
+
+	<attributes name="gameCount" scope="public" type="number" kind="calculated" scriptKind="javascript">
+
+		<onGet from="guidedModel.Celebrity.gameCount.onGet"/>
+
+	</attributes>
+
+</dataClasses>
+
+<dataClasses name="CelebrityGroup" className="CelebrityGroup" collectionName="CelebrityGroupCollection" scope="public" uuid="6B0AC7B7860F25499E18B1CF1854F462" tablePos="11">
+
+	<extraProperties ____objectunic="true" panelColor="#996699">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="30" Y="539"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="848B8E1F0D2F9C499E6270CA430E01F0" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="group" kind="storage" scope="public" uuid="92BE36EBA525A74892B6002E93829CC4" fieldPos="2" type="string"/>
+
+	<attributes name="celebrityCollection" kind="relatedEntities" scope="public" type="CelebrityCollection" reversePath="true" path="group"/>
+
+	<attributes name="availablePackagesCollection" kind="relatedEntities" scope="public" type="AvailablePackagesCollection" reversePath="true" path="celebrityGroup"/>
+
+</dataClasses>
+
+<dataClasses name="CompletedGame" className="CompletedGame" collectionName="CompletedGameCollection" scope="public" uuid="7DFE08111FD1754CAC8CEBAE9D55CDBA" tablePos="8">
+
+	<extraProperties ____objectunic="true" panelColor="#eee">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="544" Y="869"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="A15A04BD7CF451439EECAFABD9FF3787" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="playerInCompletedGameCollection" kind="relatedEntities" scope="public" type="PlayerInCompletedGameCollection" reversePath="true" path="game"/>
+
+	<attributes name="gameDate" kind="storage" scope="public" uuid="428FFD5D767C984B9A4A3F4F0FEA0BF1" fieldPos="2" type="date"/>
+
+</dataClasses>
+
+<dataClasses name="Game" className="Game" collectionName="GameCollection" scope="public" allowOverrideStamp="true" uuid="924122CE5F348B45A4BF7DE437CFCF07" tablePos="1">
+
+	<extraProperties ____objectunic="true" panelColor="#B7DDE8">
+
+		<panel ____objectunic="true" isOpen="true" resizedHeight="" pathVisible="true">
+
+			<position ____objectunic="true" X="33" Y="32"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="293CD99CC4A26543B109A593914AEA4F" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="status" kind="storage" scope="public" uuid="9290976248E0A6439DFC0A93649B57AB" fieldPos="2" type="string"/>
+
+	<attributes name="players" kind="relatedEntities" scope="public" type="PlayerInGameCollection" reversePath="true" path="game"/>
+
+	<events kind="onRemove" from="guidedModel.Game.events.onRemove"/>
+
+	<methods name="addPlayer" applyTo="entity" scope="publicOnServer" from="guidedModel.Game.entityMethods.addPlayer"/>
+
+</dataClasses>
+
+<dataClasses name="Notification" className="Notification" collectionName="NotificationCollection" scope="public" uuid="9DF53FABF943E0499C91A4496955E777" tablePos="7">
+
+	<extraProperties ____objectunic="true" panelColor="#996699">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="404" Y="247"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="5C88E8DCC346724FA1AB6D5390DF1283" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="sessionID" kind="storage" scope="public" uuid="4A4C4E693C9D0647AC635426DD936554" fieldPos="2" type="long"/>
+
+	<attributes name="message" kind="storage" scope="public" uuid="F336C3E537A9B842AD6C87385537F0AF" fieldPos="3" type="string"/>
+
+</dataClasses>
+
+<dataClasses name="PlayerAccount" className="PlayerAccount" collectionName="PlayerAccountCollection" scope="public" uuid="A7625606FCF9A446AEA2D477EA693421" tablePos="2">
+
+	<extraProperties ____objectunic="true" panelColor="#7F7F7F">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true" resizedHeight="">
+
+			<position ____objectunic="true" X="619" Y="26"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="7C58CE39B983B844A479F77A5F57F941" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="login" kind="storage" scope="public" uuid="3EC8C3A066A47446B803178FCA81B7D2" fieldPos="2" type="string"/>
+
+	<attributes name="email" kind="storage" scope="public" uuid="47EF3D2526FAD649A87C1A684F131910" fieldPos="4" type="string"/>
+
+	<attributes name="status" kind="storage" scope="public" uuid="1C1748DAB76D90408CDF82DBA7519A11" fieldPos="5" type="string">
+
+		<events kind="onSet" from="guidedModel.PlayerAccount.status.events.onSet"/>
+
+	</attributes>
+
+	<attributes name="password" kind="calculated" scope="public" type="string" scriptKind="javascript">
+
+		<onGet from="guidedModel.PlayerAccount.password.onGet"/>
+
+		<onSet from="guidedModel.PlayerAccount.password.onSet"/>
+
+	</attributes>
+
+	<attributes name="fullName" kind="storage" scope="public" uuid="2FEBF76737D14A4E839106545FF861BC" fieldPos="7" type="string"/>
+
+	<attributes name="accessType" kind="storage" scope="public" uuid="ACFFBB41FDAA8F4A8EC03F41A6913CAE" fieldPos="6" type="number"/>
+
+	<attributes name="HA1Key" kind="storage" scope="public" uuid="00460424DE517C4380DC15A29C04ED08" fieldPos="8" type="string"/>
+
+	<attributes name="statusAudit" kind="relatedEntities" scope="public" type="PlayerAccountAuditCollection" reversePath="true" path="playerAccount"/>
+
+	<attributes name="lastSessionCheckTime" kind="storage" scope="public" uuid="32C87C522989F6408FE75CAB57CF76EF" fieldPos="9" type="number"/>
+
+	<attributes name="playerInCompletedGameCollection" kind="relatedEntities" scope="public" type="PlayerInCompletedGameCollection" reversePath="true" path="player"/>
+
+	<attributes name="playerInGameCollection" kind="relatedEntities" scope="public" type="PlayerInGameCollection" reversePath="true" path="player"/>
+
+	<attributes name="accountType" kind="relatedEntity" scope="public" type="PlayerAccountType" uuid="6357D986F78C7A4FB519A57E01E35869" fieldPos="3" path="PlayerAccountType"/>
+
+	<attributes name="availablePackagesCollection" kind="relatedEntities" scope="public" type="AvailablePackagesCollection" reversePath="true" path="player"/>
+
+	<methods name="isSessionActive" applyTo="entity" scope="publicOnServer" from="guidedModel.PlayerAccount.entityMethods.isSessionActive"/>
+
+	<methods name="validatePassword" applyTo="entity" returnType="bool" scope="publicOnServer" from="guidedModel.PlayerAccount.entityMethods.validatePassword"/>
+
+</dataClasses>
+
+<dataClasses name="PlayerAccountAudit" className="PlayerAccountAudit" collectionName="PlayerAccountAuditCollection" scope="public" uuid="232C720229F4DF44B7700B69AF8403F9" tablePos="5">
+
+	<extraProperties ____objectunic="true" panelColor="#B8CCE4">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true" resizedHeight="">
+
+			<position ____objectunic="true" X="1153" Y="434"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="827FC90CE0887045B92255E435473D8D" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="dbStamp" kind="storage" scope="public" uuid="6C72B20E5AFE9E409649F2E652A6537C" fieldPos="2" type="duration"/>
+
+	<attributes name="PlayerID" kind="storage" scope="public" uuid="96CCA7F175FEBA46ACBD29228142E06F" fieldPos="3" type="long"/>
+
+	<attributes name="status" kind="storage" scope="public" uuid="BEF5E26ED9180C458E29B6C29A77C6E2" fieldPos="4" type="string"/>
+
+	<attributes name="playerAccount" kind="relatedEntity" scope="public" type="PlayerAccount" uuid="7511F1D22F2D7041881F97A6F26DE792" fieldPos="5" path="PlayerAccount"/>
+
+</dataClasses>
+
+<dataClasses name="PlayerAccountType" className="PlayerAccountType" collectionName="PlayerAccountTypeCollection" scope="public" uuid="E74D2F3447B43D408CAD38956D86DA03" tablePos="10">
+
+	<extraProperties ____objectunic="true" panelColor="#B7DDE8">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="706" Y="563"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="254E9FD1364CCC4FAACAF5D8461F11A3" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="accountType" kind="storage" scope="public" uuid="84F44E12293F874CBFFC6435A3D001A3" fieldPos="2" type="string"/>
+
+	<attributes name="playerAccountType" kind="relatedEntity" scope="public" type="PlayerAccount" uuid="299731D3D9322A40805998A68A87CF53" fieldPos="3" path="PlayerAccount"/>
+
+	<attributes name="playerAccountCollection" kind="relatedEntities" scope="public" type="PlayerAccountCollection" reversePath="true" path="accountType"/>
+
+	<attributes name="requiredAuthentication" kind="calculated" scope="public" type="bool" scriptKind="javascript">
+
+		<onGet from="guidedModel.PlayerAccountType.requiredAuthentication.onGet"/>
+
+	</attributes>
+
+</dataClasses>
+
+<dataClasses name="PlayerInCompletedGame" className="PlayerInCompletedGame" collectionName="PlayerInCompletedGameCollection" scope="public" uuid="70571A9C3599864DA196A7CA67998357" tablePos="9">
+
+	<extraProperties ____objectunic="true" panelColor="#CCC1D9">
+
+		<panel ____objectunic="true" isOpen="true" resizedHeight="" pathVisible="true">
+
+			<position ____objectunic="true" X="522" Y="579"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="951AA139CDE5884F9183CE3A5D342E39" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="game" kind="relatedEntity" scope="public" type="CompletedGame" uuid="B294E1FED32A5844AC580346692D258A" fieldPos="3" path="CompletedGame"/>
+
+	<attributes name="player" kind="relatedEntity" scope="public" type="PlayerAccount" uuid="DAAD1A99FA5C604D8BC5FAB54F003DD7" fieldPos="4" path="PlayerAccount"/>
+
+	<attributes name="celebrity" kind="relatedEntity" scope="public" type="Celebrity" uuid="3EAB6B6E7565C940BEE8AB75D2173F3A" fieldPos="2" path="Celebrity"/>
+
+	<attributes name="numberOfQuestionsAsked" kind="storage" scope="public" uuid="5C9BF0DE76A1C649BDCE87DC61754703" fieldPos="5" type="number"/>
+
+	<attributes name="isWinner" kind="storage" scope="public" uuid="2B76CE111EC354448018E7EA9D0ECC1C" fieldPos="6" type="bool"/>
+
+</dataClasses>
+
+<dataClasses name="PlayerInGame" className="PlayerInGame" collectionName="PlayerInGameCollection" scope="public" allowOverrideStamp="true" uuid="F7B8B1EC2F650A45A72A704168E077F5" tablePos="3">
+
+	<extraProperties ____objectunic="true" panelColor="#E5B9B7">
+
+		<panel ____objectunic="true" isOpen="true" resizedHeight="" pathVisible="true">
+
+			<position ____objectunic="true" X="42" Y="228"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="88D34DFB400C0F4599B131491A5F041B" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="game" kind="relatedEntity" scope="public" type="Game" uuid="E04631E64AA87C4DA60A8162545E1AEF" fieldPos="2" path="Game"/>
+
+	<attributes name="celebrity" kind="relatedEntity" scope="public" type="Celebrity" uuid="DF847C792E530B4C8785CB58840CEA57" fieldPos="4" path="Celebrity">
+
+		<events kind="onSave" from="guidedModel.PlayerInGame.celebrity.events.onSave"/>
+
+	</attributes>
+
+	<attributes name="hasToken" kind="storage" scope="public" uuid="26CCC1FCD2881D4186114F54B251A808" fieldPos="5" type="bool"/>
+
+	<attributes name="numberOfQuestionsAsked" kind="calculated" scope="public" type="number" scriptKind="javascript">
+
+		<onGet from="guidedModel.PlayerInGame.numberOfQuestionsAsked.onGet"/>
+
+	</attributes>
+
+	<attributes name="player" kind="relatedEntity" scope="public" type="PlayerAccount" uuid="3B2FD589B041354A92EDF0F434F08F08" fieldPos="3" path="PlayerAccount"/>
+
+	<attributes name="skipNextTurn" kind="storage" scope="public" uuid="D619B25DE7816A4D8A605C79FDD74AA0" fieldPos="6" type="bool"/>
+
+</dataClasses>
+
+<dataClasses name="Question" className="Question" collectionName="QuestionCollection" scope="public" uuid="2BAADB0BC5332E43AA57F329927D73A3" tablePos="6">
+
+	<extraProperties ____objectunic="true" panelColor="#BFBFBF">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true" resizedHeight="">
+
+			<position ____objectunic="true" X="354" Y="29"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="CA53985C3A48134C8DA1FB4427C4644F" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="questionAsked" kind="storage" scope="public" uuid="88F5797C49A62D4EB6013E69B3424F08" fieldPos="2" type="string"/>
+
+	<attributes name="answer" kind="storage" scope="public" uuid="C6AB15A39583684EB6BD6E51253D4E34" fieldPos="3" type="string">
+
+		<events kind="onSave" from="guidedModel.Question.answer.events.onSave"/>
+
+	</attributes>
+
+	<attributes name="playerInGame" kind="relatedEntity" scope="public" type="PlayerInGame" uuid="807BFE2850FDC647A856ADA495468262" fieldPos="4" path="PlayerInGame"/>
+
+	<events kind="onSave" from="guidedModel.Question.events.onSave"/>
+
+</dataClasses>
+</EntityModelCatalog>

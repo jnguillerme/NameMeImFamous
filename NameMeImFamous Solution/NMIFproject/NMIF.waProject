@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project><folder path="./WebFolder/"><tag name="webFolder"/></folder><folder path="./data/"><tag name="dataFolder"/></folder><file path="./scripts/bootstrap.js"><tag name="bootStrap"/></file><file path="./nmif.waModel"><tag name="catalog"/></file><file path="./nmif.waPerm"><tag name="permissions"/></file><file path="./nmif.waSettings"><tag name="settings"/></file></project>
